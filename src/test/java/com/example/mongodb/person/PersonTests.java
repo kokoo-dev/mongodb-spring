@@ -2,6 +2,8 @@ package com.example.mongodb.person;
 
 import com.example.mongodb.domain.person.PersonDoc;
 import com.example.mongodb.domain.person.PersonService;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,9 +23,9 @@ public class PersonTests {
 
     @Test
     public void testSelectPerson(){
-        String _id = "60a74970f114367ba856b175";
+        String _id = "60a74978f114367ba856b176";
         PersonDoc personDoc = personService.getPerson(_id);
-        assertEquals("HongKilDong", personDoc.getName());
+        assertEquals("HongGilDong", personDoc.getName());
     }
 
     @Test
@@ -44,17 +46,39 @@ public class PersonTests {
     public void testInsertPerson(){
         PersonDoc personDoc = new PersonDoc();
         personDoc.setAge(21);
-        personDoc.setName("KangKilDong");
+        personDoc.setName("KangGilDong");
 
         PersonDoc result = personService.insertPerson(personDoc);
         logger.info("result :: " + result.get_id() + " " + result.getName() + " " + result.getAge());
     }
 
     @Test
+    public void testUpdatePerson(){
+        String _id = "60a74978f114367ba856b176";
+        PersonDoc personDoc = personService.getPerson(_id);
+        personDoc.setAge(personDoc.getAge() + 1);
+
+        UpdateResult updateResult = personService.updatePerson(personDoc);
+
+        logger.info("result:: " + updateResult.getModifiedCount());
+    }
+
+    @Test
+    public void testDeletePerson(){
+        String name = "KangGilDong";
+        PersonDoc personDoc = new PersonDoc();
+        personDoc.setName(name);
+
+        DeleteResult deleteResult = personService.deletePerson(personDoc);
+
+        logger.info("result:: " + deleteResult.getDeletedCount());
+    }
+
+    @Test
     public void testSelectPersonByRepo(){
-        String _id = "60a74970f114367ba856b175";
+        String _id = "60a74978f114367ba856b176";
         PersonDoc personDoc = personService.getPersonByRepo(_id);
-        assertEquals("HongKilDong", personDoc.getName());
+        assertEquals("HongGilDong", personDoc.getName());
     }
 
     @Test
@@ -75,9 +99,29 @@ public class PersonTests {
     public void testInsertPersonByRepo(){
         PersonDoc personDoc = new PersonDoc();
         personDoc.setAge(22);
-        personDoc.setName("LimKilDong");
+        personDoc.setName("LimGilDong");
 
         PersonDoc result = personService.insertPerson(personDoc);
         logger.info("result :: " + result.get_id() + " " + result.getName() + " " + result.getAge());
+    }
+
+    @Test
+    public void testUpdatePersonByRepo(){
+        String _id = "60a74978f114367ba856b176";
+        PersonDoc personDoc = personService.getPerson(_id);
+        personDoc.setAge(personDoc.getAge() + 1);
+
+        PersonDoc result = personService.updatePersonByRepo(personDoc);
+
+        logger.info("result :: " + result.getAge());
+    }
+
+    @Test
+    public void testDeletePersonByRepo(){
+        String name = "KangGilDong";
+        PersonDoc personDoc = new PersonDoc();
+        personDoc.setName(name);
+
+        personService.deletePersonByRepo(personDoc);
     }
 }
