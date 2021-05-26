@@ -101,7 +101,7 @@ public class PersonTests {
         personDoc.setAge(22);
         personDoc.setName("LimGilDong");
 
-        PersonDoc result = personService.insertPerson(personDoc);
+        PersonDoc result = personService.insertPersonByRepo(personDoc);
         logger.info("result :: " + result.get_id() + " " + result.getName() + " " + result.getAge());
     }
 
