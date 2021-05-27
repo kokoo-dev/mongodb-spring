@@ -14,5 +14,5 @@ public class TeamMemberDoc {
     private Long _id;
     private String teamName;
     private String event;
-    private ArrayList<MemberDTO> members;
+    private ArrayList<MemberDoc> members;
 }

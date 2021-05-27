@@ -4,7 +4,6 @@ import com.example.mongodb.domain.member.MemberDoc;
 import com.example.mongodb.domain.member.MemberService;
 import com.example.mongodb.domain.team.TeamDoc;
 import com.example.mongodb.domain.team.TeamService;
-import com.example.mongodb.domain.teammember.MemberDTO;
 import com.example.mongodb.domain.teammember.TeamMemberDoc;
 import com.example.mongodb.domain.teammember.TeamMemberService;
 import org.junit.jupiter.api.Test;
@@ -51,7 +50,7 @@ public class TeamTests {
         for(TeamMemberDoc teamMember : teamList){
             logger.info(teamMember.getTeamName() + " " + teamMember.getEvent());
 
-            for(MemberDTO member : teamMember.getMembers()){
+            for(MemberDoc member : teamMember.getMembers()){
                 logger.info(member.getMemberName());
             }
         }
